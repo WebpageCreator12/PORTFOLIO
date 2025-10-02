@@ -9,6 +9,371 @@
 </head>
 <body>
 
+    <style>
+        :root {
+            --color-primary: #0A0A0A; /* Deep Black (60%) */
+            --color-secondary: #1D1D1D; /* Dark Slate (30%) */
+            --color-accent: #00FFFF; /* Electric Cyan (10%) */
+            --color-text: #F0F0F0; /* Off-White */
+            --color-muted: #888888; /* Grey for subtle text */
+            --color-tertiary: #111111; /* Slightly darker than secondary for footer/cards */
+        }
+        
+        /* --- Base & Typography --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-primary); /* 60% Dominant Color */
+            color: var(--color-text);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 10px 0; /* Generous padding for clean spacing */
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 0.5em;
+            font-weight: 700;
+        }
+        
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--color-primary);
+            position: sticky; /* Sticky navigation for better UX */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        header .logo {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px; /* Reduced gap slightly for 6 links */
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--color-muted);
+            font-weight: 600;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        /* Neat Hover Feature for Nav Links */
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease-out;
+        }
+        
+        nav a:hover, nav a.active-link {
+            color: var(--color-text);
+        }
+        
+        nav a.active-link::after {
+            width: 100%;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        
+        .project-link {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .project-link:hover {
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-accent);
+        }
+        
+        /* --- Call-to-Action Button --- */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-accent); /* 10% Accent Color */
+            color: var(--color-primary); /* Dark text on bright background */
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+        }
+        
+        /* Sleek Hover Feature for CTA Button */
+        .cta-button:hover {
+            background-color: transparent; /* Inverse colors on hover */
+            color: var(--color-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
+        }
+        
+        /* Project Link Style (Used for 'Learn My Full Story' on index) */
+        .project-link {
+            display: inline-block;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: letter-spacing 0.3s;
+        }
+        
+        .project-link:hover {
+            letter-spacing: 1px;
+            color: var(--color-text);
+        }
+        
+        /* General Section Titles */
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: var(--color-accent);
+        }
+        
+        /* Skills Grid (For Core Competencies section) */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .skill-category {
+            background-color: var(--color-tertiary); /* Darker shade for category box */
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--color-secondary);
+        }
+        
+        .skill-category h3 {
+            color: var(--color-accent);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-secondary);
+        }
+        
+        .skill-category ul {
+            list-style: none;
+        }
+        
+        .skill-category li {
+            padding: 5px 0;
+            color: var(--color-muted);
+        }
+        
+        /* --- PRICING PAGE STYLES (NEW) --- */
+        #pricing-table {
+            padding-top: 100px;
+            text-align: center;
+        }
+        
+        .pricing-header h1 {
+            font-size: 3em;
+            color: var(--color-text);
+            margin-bottom: 10px;
+        }
+        
+        .pricing-header p {
+            font-size: 1.2em;
+            color: var(--color-accent);
+            margin-bottom: 60px;
+        }
+        
+        .pricing-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-card {
+            background-color: var(--color-secondary);
+            border-radius: 10px;
+            padding: 40px 30px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s, border-color 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            text-align: left;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+        }
+        
+        .card-title {
+            font-size: 1.8em;
+            color: var(--color-accent);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .card-price {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .card-price small {
+            font-size: 0.5em;
+            font-weight: 400;
+            color: var(--color-muted);
+            vertical-align: super;
+        }
+        
+        .card-features {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 30px;
+        }
+        
+        .card-features li {
+            color: var(--color-text);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1.05em;
+        }
+        
+        .card-features li::before {
+            content: '→'; /* Simple checkmark lookalike for dark theme */
+            color: var(--color-accent);
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        
+        /* Star/Icon indicator for cards */
+        .icon-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2em;
+            color: var(--color-accent);
+        }
+        
+        /* Special Offer Box */
+        .special-offer {
+            background-color: var(--color-tertiary);
+            color: var(--color-accent);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px dashed var(--color-accent);
+            margin: 40px auto 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        .special-offer strong {
+            font-size: 1.8em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .special-offer p {
+            color: var(--color-muted);
+        }
+        
+        /* --- Footer --- */
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            background-color: var(--color-secondary);
+            border-top: 1px solid var(--color-primary);
+            font-size: 0.85em;
+            color: var(--color-muted);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 15px;
+            }
+            .hero-content h1 {
+                font-size: 3em;
+            }
+            .pricing-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .pricing-card {
+                width: 90%;
+                max-width: 400px;
+            }
+        }
+        
+        
+        @media (min-width: 1200px) {
+            .articles-grid {
+                /* Use a grid to define two columns: one for the list, one for the sticky image */
+                display: grid;
+                grid-template-columns: 1fr 350px;
+                gap: 0;
+                max-width: 1200px; /* Use a wider container on desktop */
+            }
+        
+            /* Position the article cards in the first column */
+            .articles-grid .article-card {
+                grid-column: 1 / 2;
+                margin-right: 0;
+            }
+        
+            /* Override mobile default and enable sticky container */
+            #sticky-image-container {
+                display: block; /* Show container on desktop */
+                grid-column: 2 / 3;
+                grid-row: 1 / span 10; /* Span across articles */
+                position: sticky;
+                top: 50px; /* Distance from viewport top */
+                align-self: start; /* Sticks it to the top of its grid area */
+                width: 350px; /* Fixed width */
+                height: 400px; /* Fixed height */
+            }
+        }
+    </style>
+
     <!-- Header & Navigation -->
     <header>
         <div class="container header-content">
@@ -97,4 +462,5 @@
 
 </body>
 </html>
+
 
