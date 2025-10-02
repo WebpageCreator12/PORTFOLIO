@@ -1,0 +1,355 @@
+/* --- Color Variables --- */
+:root {
+    --color-primary: #0A0A0A; /* Deep Black (60%) */
+    --color-secondary: #1D1D1D; /* Dark Slate (30%) */
+    --color-accent: #00FFFF; /* Electric Cyan (10%) */
+    --color-text: #F0F0F0; /* Off-White */
+    --color-muted: #888888; /* Grey for subtle text */
+    --color-tertiary: #111111; /* Slightly darker than secondary for footer/cards */
+}
+
+/* --- Base & Typography --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-primary); /* 60% Dominant Color */
+    color: var(--color-text);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10px 0; /* Generous padding for clean spacing */
+}
+
+h1, h2, h3 {
+    margin-bottom: 0.5em;
+    font-weight: 700;
+}
+
+/* --- Header & Navigation --- */
+header {
+    background-color: var(--color-primary);
+    position: sticky; /* Sticky navigation for better UX */
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+header .logo {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-transform: uppercase;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px; /* Reduced gap slightly for 6 links */
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--color-muted);
+    font-weight: 600;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s;
+}
+
+/* Neat Hover Feature for Nav Links */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-accent);
+    transition: width 0.3s ease-out;
+}
+
+nav a:hover, nav a.active-link {
+    color: var(--color-text);
+}
+
+nav a.active-link::after {
+    width: 100%;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+
+.project-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid transparent;
+}
+
+.project-link:hover {
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-accent);
+}
+
+/* ------------------------------------------- */
+/* --- BLOG LIST & ZIG-ZAG LAYOUT STYLES --- */
+/* ------------------------------------------- */
+
+#blog-list {
+    padding: 100px 0;
+    background-color: var(--color-primary);
+}
+
+/* Default stack layout for mobile/small screens */
+.articles-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 60px; /* Space between articles */
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative; /* Context for sticky image */
+}
+
+.article-card {
+    padding: 30px;
+    border: 1px solid var(--color-secondary);
+    border-radius: 8px;
+    background-color: var(--color-secondary);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    min-height: 200px;
+    cursor: default; /* Hint to the user it's interactive */
+}
+
+.article-card:hover {
+    background-color: #383838; /* Subtle lift on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.15); /* Accent shadow */
+}
+
+.article-content {
+    color: var(--color-text);
+}
+
+.article-date {
+    display: block;
+    font-size: 0.9em;
+    color: var(--color-accent);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.article-title {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.article-title a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.article-title a:hover {
+    color: var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.article-card p {
+    color: var(--color-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+/* ------------------------------------------- */
+/* --- STICKY IMAGE CONTAINER STYLES --- */
+/* ------------------------------------------- */
+
+#sticky-image-container {
+    /* Initially hidden and placed far right on small screens */
+    display: none; 
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+#sticky-article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--color-accent);
+}
+
+
+/* ------------------------------------------- */
+/* --- DESKTOP LAYOUT (ZIG-ZAG + STICKY) --- */
+/* ------------------------------------------- */
+
+@media (min-width: 1200px) {
+    .articles-grid {
+        /* Use a grid to define two columns: one for the list, one for the sticky image */
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: 0;
+        max-width: 1200px; /* Use a wider container on desktop */
+    }
+
+    /* Position the article cards in the first column */
+    .articles-grid .article-card {
+        grid-column: 1 / 2;
+        margin-right: 0;
+    }
+
+    /* Override mobile default and enable sticky container */
+    #sticky-image-container {
+        display: block; /* Show container on desktop */
+        grid-column: 2 / 3;
+        grid-row: 1 / span 10; /* Span across articles */
+        position: sticky;
+        top: 50px; /* Distance from viewport top */
+        align-self: start; /* Sticks it to the top of its grid area */
+        width: 350px; /* Fixed width */
+        height: 400px; /* Fixed height */
+    }
+}
+
+/* ================================================= */
+/* --- BLOGS/ARTICLES INDEX STYLES --- */
+/* ================================================= */
+
+#blogs {
+    /* Uses the primary color for a consistent dark background */
+    background-color: var(--color-primary); 
+    padding: 100px 0; /* Consistent vertical padding with other sections */
+}
+
+.article-grid {
+    display: grid;
+    /* Desktop: Responsive 3-column flow (min 350px width per card) */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px; /* Consistent gap with project-grid */
+    margin-top: 40px;
+    align-items: start; /* Helps with masonry-like vertical alignment */
+}
+
+.article-card {
+    background-color: var(--color-secondary); /* Dark Slate background for the card */
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    
+    /* Initial border/shadow for a defined look */
+    border: 1px solid var(--color-secondary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    
+    /* --- Smooth Transition for Hover Feature --- */
+    transition: 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* --- Hover Feature: Lift and Shadow Change --- */
+.article-card:hover {
+    transform: translateY(-5px); /* Requested "lift" effect */
+    /* Accent shadow for the glow effect, similar to .project-card:hover */
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2); 
+    border-color: var(--color-accent); /* Highlight border on hover */
+}
+
+.article-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    /* Small accent line to visually separate the image */
+    border-bottom: 3px solid var(--color-accent); 
+}
+
+.article-content {
+    padding: 30px; /* Consistent padding with other cards (e.g., .project-card) */
+    flex-grow: 1; /* Ensures content fills space evenly */
+}
+
+.article-category {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.article-content h3 {
+    font-size: 1.5em;
+    color: var(--color-text);
+    margin-bottom: 15px;
+    line-height: 1.3;
+}
+
+.article-content p {
+    color: var(--color-muted);
+    margin-bottom: 20px;
+}
+
+.read-more {
+    display: inline-block;
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    transition: letter-spacing 0.3s, color 0.3s;
+}
+
+.read-more:hover {
+    letter-spacing: 1px;
+    color: var(--color-text); /* Changes to off-white on hover */
+}
+
+
+/* --- Media Queries for Responsiveness (Matching style.css) --- */
+
+@media (max-width: 900px) {
+    /* No change to article-grid on this breakpoint as minmax handles it */
+    /* The grid will naturally drop to 2 columns if the viewport is small enough */
+}
+
+@media (max-width: 600px) {
+    .article-grid {
+        /* On small mobiles, force a single column layout */
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    #blogs {
+        padding: 50px 0; /* Reduce padding on mobile */
+    }
+}

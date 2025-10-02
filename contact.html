@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTFOLIO - Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">Ved Pandey</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html" class="active-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Ready to Collaborate?</h2>
+            <p style="font-size: 1.1em; color: var(--color-muted); margin-bottom: 40px;">I'm currently open to new roles, mentorship opportunities, and freelance projects. I look forward to hearing from you!</p>
+
+            <form class="contact-form" action="https://formsubmit.co/vedpandey570@gmail.com" method="POST" onsubmit="event.preventDefault(); const button = event.target.querySelector('.cta-button'); const originalText = button.textContent; button.textContent = 'Message Sent! Thank you.'; button.disabled = true; setTimeout(() => { button.textContent = originalText; button.disabled = false; event.target.reset(); }, 3000);">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <input type="text" name="subject" placeholder="Subject" required>
+                <textarea name="message" placeholder="Your Message..." required></textarea>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ved Pandey. Built with Clean Code & Dedicated to Innovation.</p>
+             <p><a href="privacy.html" class="project-link" style="margin-top: 0; font-size: 1em;">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+
+</body>
+</html>
